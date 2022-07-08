@@ -245,11 +245,17 @@ class InputDictionary(RestoreEntity):
     async def async_append_dictionary(self, keyvalues: str):
         """Provide a string to update the dictionary."""
         self.keyvalues = keyvalues
+        if self.dictionary is None:
+            self.dictionary = {}
         self.dictionary.update(ast.literal_eval(keyvalues))
         self.async_write_ha_state()
 
     async def async_remove_key(self, key):
         """Remove provided keys from the dictionary."""
+        if self.dictionary is None:
+            _LOGGER.error("Dictionary object is null. Service remove_key has failed")
+            return
+
         self.dictionary.pop(key)
         self.async_write_ha_state()
 
