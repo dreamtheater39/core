@@ -17,6 +17,7 @@
     "input_number",
     "input_select",
     "input_text",
+    "input_dictionary",
     "logbook",
     "map",
     "media_source",
