@@ -188,7 +188,10 @@ class InputDictionary(RestoreEntity):
         input_dictionary.entity_id = f"{DOMAIN}.{config[CONF_ID]}"
         input_dictionary.editable = False
         input_dictionary.keyvalues = str(config.get(CONF_DICTIONARY_STR))
-        input_dictionary.dictionary = ast.literal_eval(input_dictionary.keyvalues)
+        if len(input_dictionary.keyvalues) > 0:
+            input_dictionary.dictionary = ast.literal_eval(input_dictionary.keyvalues)
+        else:
+            input_dictionary.dictionary = {}
         return input_dictionary
 
     @property
